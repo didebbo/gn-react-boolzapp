@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    padding-top: 2em;
+    height: 100vh;
+    cursor: default;
+    background-image: linear-gradient(to bottom, #009688 0px 5em, #d7dbd6 0px 100%);
+}
