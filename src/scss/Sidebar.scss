@@ -1,0 +1,82 @@
+.Sidebar {
+    display: flex;
+    flex-direction: column;
+    .header {
+        display: flex;
+        align-items: center;
+        background-color: #eaeaea;
+        > * {
+            padding: 0.2em 0.4em;
+        }
+        .user {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            > * {
+                margin: 0 0.2em;
+                cursor: pointer;
+            }
+            .avatar {
+                flex-shrink: 0;
+                width: 2.5em;
+                height: 2.5em;
+                overflow: hidden;
+                border-radius: 100%;
+                margin: 0.25em;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            .name {
+                font-size: 0.8em;
+                white-space: nowrap;
+            }
+        }
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            > * {
+                margin: 0 0.4em;
+                cursor: pointer;
+                color: #b1b1b1;
+            }
+        }
+    }
+    .body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .notifiche {
+            display: flex;
+            align-items: center;
+            background-color: #8edafc;
+            padding: 0.5em;
+            > * {
+                margin: 0 0.2em;
+            }
+            .icon {
+                background-color: #ffffff;
+                padding: 0.5em;
+                border-radius: 100%;
+                color: #8edafc;
+            }
+            .content {
+                strong {
+                    font-size: 0.7em;
+                    display: block;
+                }
+                small {
+                    font-size: 0.6em;
+                    text-decoration: underline;
+                    opacity: 0.6;
+                    cursor: pointer;
+                    display: block;
+                }
+            }
+        }
+    }
+}
