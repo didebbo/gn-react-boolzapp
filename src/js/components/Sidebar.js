@@ -2,7 +2,7 @@ import '../../scss/Sidebar.scss';
 
 function Sidebar(props) {
 
-    const changeInput = (e) => {
+    const dynamicSearch = (e) => {
         let searchInput = e.target.value;
         let contacts = props.data.contacts;
         contacts.forEach(contact => {
@@ -11,16 +11,6 @@ function Sidebar(props) {
         });
         props.setData({ ...props.data, searchInput, contacts });
     }
-
-    // const filterUsers = () => {
-    //     let contacts = props.data.contacts;
-    //     contacts.forEach(contact => {
-    //         if (contact.name.toLowerCase().includes(props.data.searchInput.toLowerCase())) contact.visible = true;
-    //         else contact.visible = false;
-    //     });
-    //     props.setData({ ...props.data, contacts })
-    // }
-
 
     return (
         <div className="Sidebar">
@@ -58,7 +48,7 @@ function Sidebar(props) {
                         <i className="fas fa-search"></i>
                     </div>
                     <div className="search-input">
-                        <input type="text" value={props.data.searchInput} onChange={changeInput} placeholder="Cerca o inizia una nuova chat" />
+                        <input type="text" value={props.data.searchInput} onChange={dynamicSearch} placeholder="Cerca o inizia una nuova chat" />
                     </div>
                 </div>
                 <div className="users-list">
