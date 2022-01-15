@@ -1,7 +1,27 @@
 import '../../scss/Sidebar.scss';
 
 function Sidebar(props) {
-    console.log(props.data.contacts);
+
+    const changeInput = (e) => {
+        let searchInput = e.target.value;
+        let contacts = props.data.contacts;
+        contacts.forEach(contact => {
+            if (contact.name.toLowerCase().includes(searchInput.toLowerCase())) contact.visible = true;
+            else contact.visible = false;
+        });
+        props.setData({ ...props.data, searchInput, contacts });
+    }
+
+    // const filterUsers = () => {
+    //     let contacts = props.data.contacts;
+    //     contacts.forEach(contact => {
+    //         if (contact.name.toLowerCase().includes(props.data.searchInput.toLowerCase())) contact.visible = true;
+    //         else contact.visible = false;
+    //     });
+    //     props.setData({ ...props.data, contacts })
+    // }
+
+
     return (
         <div className="Sidebar">
             <div className="header">
@@ -38,19 +58,21 @@ function Sidebar(props) {
                         <i className="fas fa-search"></i>
                     </div>
                     <div className="search-input">
-                        <input type="text" placeholder="Cerca o inizia una nuova chat" />
+                        <input type="text" value={props.data.searchInput} onChange={changeInput} placeholder="Cerca o inizia una nuova chat" />
                     </div>
                 </div>
                 <div className="users-list">
                     <ul className="users">
                         {
                             props.data.contacts.map((contact, index) => (
-                                <li className="user" key={index}>
-                                    <div className="avatar">
-                                        <img src={require('../../images/avatar' + contact.avatar + '.jpg')} alt="Avatar" />
-                                    </div>
-                                    <div className="name">{contact.name}</div>
-                                </li>
+                                contact.visible ?
+                                    <li className="user" key={index}>
+                                        <div className="avatar">
+                                            <img src={require('../../images/avatar' + contact.avatar + '.jpg')} alt="Avatar" />
+                                        </div>
+                                        <div className="name">{contact.name}</div>
+                                    </li>
+                                    : null
                             ))
                         }
                     </ul>
