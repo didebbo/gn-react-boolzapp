@@ -78,5 +78,72 @@
                 }
             }
         }
+        .search {
+            display: flex;
+            padding: 0.5em;
+            .search-button {
+                display: flex;
+                align-items: center;
+                padding: 0.2em 1em;
+                background-color: #fff;
+                border: 0.1em solid #eaeaea;
+                color: #b6b9bb;
+                border-right: none;
+                cursor: pointer;
+            }
+            .search-input {
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+                border: 0.1em solid #eaeaea;
+                input {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    font-size: 0.8em;
+                    padding: 0.2em;
+                }
+            }
+        }
+        .users-list {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #fff;
+            .users {
+                flex-grow: 1;
+                overflow-y: auto;
+                overflow-x: hidden;
+                .user {
+                    display: flex;
+                    align-items: center;
+                    padding: 0.5em;
+                    cursor: pointer;
+                    &.active {
+                        background-color: #e9ebeb;
+                    }
+                    > * {
+                        margin: 0 0.5em;
+                    }
+                    .avatar {
+                        flex-shrink: 0;
+                        width: 2.5em;
+                        height: 2.5em;
+                        overflow: hidden;
+                        border-radius: 100%;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+                    .name {
+                        font-size: 0.8em;
+                    }
+                }
+            }
+        }
     }
 }

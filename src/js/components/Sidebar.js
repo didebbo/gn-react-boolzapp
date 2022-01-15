@@ -1,6 +1,7 @@
 import '../../scss/Sidebar.scss';
 
-function Sidebar() {
+function Sidebar(props) {
+    console.log(props.data.contacts);
     return (
         <div className="Sidebar">
             <div className="header">
@@ -31,6 +32,28 @@ function Sidebar() {
                             Attiva notifiche desktop
                         </small>
                     </div>
+                </div>
+                <div className="search">
+                    <div className="search-button">
+                        <i className="fas fa-search"></i>
+                    </div>
+                    <div className="search-input">
+                        <input type="text" placeholder="Cerca o inizia una nuova chat" />
+                    </div>
+                </div>
+                <div className="users-list">
+                    <ul className="users">
+                        {
+                            props.data.contacts.map((contact, index) => (
+                                <li className="user" key={index}>
+                                    <div className="avatar">
+                                        <img src={require('../../images/avatar' + contact.avatar + '.jpg')} alt="Avatar" />
+                                    </div>
+                                    <div className="name">{contact.name}</div>
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </div>
             </div>
         </div>

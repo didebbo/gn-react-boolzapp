@@ -7,7 +7,7 @@ function App() {
   const [data, setData] = useState(database);
   return (
     <div className="App">
-      <Sidebar />
+      <Sidebar data={data} />
     </div>
   );
 }
