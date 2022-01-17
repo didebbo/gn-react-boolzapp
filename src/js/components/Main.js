@@ -1,9 +1,16 @@
 import '../../scss/Main.scss';
 
 export default function Main(props) {
+    let currentContact = props.data.currentContact;
+    let name = props.data.contacts[currentContact].name;
+    let lastSee = props.data.contacts[currentContact].lastSee;
+
     const getAvatarImage = () => {
-        let src = require('../../images/avatar_' + (props.data.currentContact + 1) + ".jpg");
-        return src;
+        return require('../../images/avatar_' + (currentContact + 1) + ".jpg");
+    };
+    const getLastSee = () => {
+        if (lastSee === 'Online') return lastSee;
+        else return 'Ultimo accesso: ' + lastSee;
     }
     return (
         <div className="Main">
@@ -14,10 +21,10 @@ export default function Main(props) {
                     </div>
                     <div className="content">
                         <div className="name">
-                            Name here...
+                            {name}
                         </div>
                         <div className="last-see">
-                            Ultimo accesso: ...
+                            {getLastSee()}
                         </div>
                     </div>
                 </div>
