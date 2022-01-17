@@ -12,6 +12,10 @@ export default function Main(props) {
         if (lastSee === 'Online') return lastSee;
         else return 'Ultimo accesso: ' + lastSee;
     }
+    const togglemenu = () => {
+        let showMenu = !props.data.showMenu;
+        props.setData({ ...props.data, showMenu });
+    }
     return (
         <div className="Main">
             <div className="header">
@@ -29,7 +33,7 @@ export default function Main(props) {
                     </div>
                 </div>
                 <div className="actions">
-                    <i className="fas fa-search"></i>
+                    <i className="fas fa-search" onClick={togglemenu}></i>
                     <i className="fas fa-paperclip"></i>
                     <i className="fas fa-ellipsis-v"></i>
                 </div>
