@@ -53,4 +53,44 @@
             }
         }
     }
+    .chat {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-image: url("../images/mine.jpg");
+        background-attachment: fixed;
+        background-repeat: repeat;
+        background-position: center;
+        .push {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            margin: 0.5em 1em;
+            border-radius: 0.5em;
+            animation-duration: 0.3s;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            &.received {
+                align-self: flex-start;
+                background-color: #fff;
+                animation-name: inFromLeft;
+            }
+            &.sent {
+                align-self: flex-end;
+                background-color: #d5f9ba;
+                animation-name: inFromRight;
+            }
+            > * {
+                margin: 0.5em 1em;
+            }
+            .text {
+                font-size: 0.7em;
+            }
+            audio {
+                border-radius: 2em;
+            }
+        }
+    }
 }

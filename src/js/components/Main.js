@@ -2,6 +2,8 @@ import '../../scss/Main.scss';
 
 export default function Main(props) {
     let currentContact = props.data.currentContact;
+    let contacts = props.data.contacts;
+    let messages = contacts[currentContact].messages;
     let name = props.data.contacts[currentContact].name;
     let lastSee = props.data.contacts[currentContact].lastSee;
 
@@ -16,6 +18,23 @@ export default function Main(props) {
         let showMenu = !props.data.showMenu;
         props.setData({ ...props.data, showMenu });
     }
+    const toggleDarkMode = () => {
+        let darkMode = !props.data.darkMode;
+        props.setData({ ...props.data, darkMode })
+    }
+    const getPushClass = (message) => {
+        let className = "push " + message.status;
+        return className;
+    }
+
+    const openMenu = (index) => {
+        let showMessageMenu = props.data.showMessageMenu;
+        if (showMessageMenu.index == index) showMessageMenu.status = !showMessageMenu.status;
+        else showMessageMenu.status = true;
+        if (showMessageMenu.status) showMessageMenu.index = index;
+        props.setData({ ...props.data, showMessageMenu });
+    }
+
     return (
         <div className="Main">
             <div className="header">
@@ -35,8 +54,24 @@ export default function Main(props) {
                 <div className="actions">
                     <i className="fas fa-search" onClick={togglemenu}></i>
                     <i className="fas fa-paperclip"></i>
-                    <i className="fas fa-ellipsis-v"></i>
+                    <i className="fas fa-ellipsis-v" onClick={toggleDarkMode}></i>
                 </div>
+            </div>
+            <div id="chat" className='chat'>
+                {
+                    messages.map((message, index) => (
+                        <div key={currentContact + "_" + index} className={getPushClass(message)} onClick={() => openMenu(index)}>
+                            {
+                                !message.audio ?
+                                    <div className="text">
+                                        {message.message}
+                                    </div>
+                                    :
+                                    <audio src={message.message} controls></audio>
+                            }
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );
