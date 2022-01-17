@@ -2,9 +2,12 @@ import '../../scss/Sidebar.scss';
 
 export default function Sidebar(props) {
 
-    const dynamicSearch = (e) => {
-        let searchInput = e.target.value;
-        let contacts = props.data.contacts;
+    let avatar = require('../../images/avatar_io.jpg');
+    let searchInput = props.data.searchInput;
+    let contacts = props.data.contacts;
+
+    const setSearchInput = (e) => {
+        searchInput = e.target.value;
         contacts.forEach(contact => {
             if (contact.name.toLowerCase().includes(searchInput.toLowerCase())) contact.visible = true;
             else contact.visible = false;
@@ -14,27 +17,27 @@ export default function Sidebar(props) {
 
     const showSidebar = () => {
         let className = 'Sidebar';
-        if(props.data.showMenu) className += " show";
+        if (props.data.showMenu) className += " show";
         return className;
     };
 
     const toggleDarkMode = () => {
         let darkMode = !props.data.darkMode;
-        props.setData({...props.data, darkMode})
+        props.setData({ ...props.data, darkMode })
     };
 
     const classUser = (index) => {
-        let className= 'user';
-        if(index === props.data.currentContact) className += " active";
+        let className = 'user';
+        if (index === props.data.currentContact) className += " active";
         return className;
     }
 
     const changeContact = (index) => {
         let currentContact = index;
         let showMenu = !props.data.showMenu;
-        let showMessageMenu= props.data.showMessageMenu;
+        let showMessageMenu = props.data.showMessageMenu;
         showMessageMenu.status = false;
-        props.setData({...props.data, currentContact,showMenu,showMessageMenu});
+        props.setData({ ...props.data, currentContact, showMenu, showMessageMenu });
         // autoScrollMessage(); 
     }
 
@@ -50,7 +53,7 @@ export default function Sidebar(props) {
             <div className="header">
                 <div className="user">
                     <div className="avatar">
-                        <img src={require('../../images/avatar_io.jpg')} alt="Me" />
+                        <img src={avatar} alt="Me" />
                     </div>
                     <div className="name">
                         Giada
@@ -81,13 +84,13 @@ export default function Sidebar(props) {
                         <i className="fas fa-search"></i>
                     </div>
                     <div className="search-input">
-                        <input type="text" value={props.data.searchInput} onChange={dynamicSearch} placeholder="Cerca o inizia una nuova chat" />
+                        <input type="text" value={searchInput} onChange={setSearchInput} placeholder="Cerca o inizia una nuova chat" />
                     </div>
                 </div>
                 <div className="users-list">
                     <ul className="users">
                         {
-                            props.data.contacts.map((contact, index) => (
+                            contacts.map((contact, index) => (
                                 contact.visible ?
                                     <li className={classUser(index)} key={index} onClick={() => changeContact(index)}>
                                         <div className="avatar">
