@@ -1,6 +1,6 @@
 import '../../scss/Sidebar.scss';
 
-function Sidebar(props) {
+export default function Sidebar(props) {
 
     const dynamicSearch = (e) => {
         let searchInput = e.target.value;
@@ -104,5 +104,3 @@ function Sidebar(props) {
         </div>
     );
 }
-
-export default Sidebar;

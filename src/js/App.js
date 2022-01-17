@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../scss/App.scss';
 import Sidebar from './components/Sidebar';
+import Main from './components/Main';
 import database from '../config/database'
 
-function App() {
+export default function App() {
   const [data, setData] = useState(database);
-  useEffect(() => {
-    console.log(data);
-  });
   return (
     <div className="App">
       <Sidebar data={data} setData={setData} />
+      <Main data={data} setData={setData} />
     </div>
   );
-}
-
-export default App;
+};
