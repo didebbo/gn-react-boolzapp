@@ -10,10 +10,43 @@ function Sidebar(props) {
             else contact.visible = false;
         });
         props.setData({ ...props.data, searchInput, contacts });
+    };
+
+    const showSidebar = () => {
+        let className = 'Sidebar';
+        if(props.data.showMenu) className += " show";
+        return className;
+    };
+
+    const toggleDarkMode = () => {
+        let darkMode = !props.data.darkMode;
+        props.setData({...props.data, darkMode})
+    };
+
+    const classUser = (index) => {
+        let className= 'user';
+        if(index === props.data.currentContact) className += " active";
+        return className;
     }
 
+    const changeContact = (index) => {
+        let currentContact = index;
+        let showMenu = !props.data.showMenu;
+        let showMessageMenu= props.data.showMessageMenu;
+        showMessageMenu.status = false;
+        props.setData({...props.data, currentContact,showMenu,showMessageMenu});
+        // autoScrollMessage(); 
+    }
+
+    // const autoScrollMessage = () => {
+    //     setTimeout(() => {
+    //         const chat = document.getElementById("chat");
+    //         chat.scrollTop = chat.scrollHeight;
+    //     }, 0);
+    // }
+
     return (
-        <div className="Sidebar">
+        <div className={showSidebar()}>
             <div className="header">
                 <div className="user">
                     <div className="avatar">
@@ -26,7 +59,7 @@ function Sidebar(props) {
                 <div className="actions">
                     <i className="fas fa-circle-notch"></i>
                     <i className="fas fa-comment-alt"></i>
-                    <i className="fas fa-ellipsis-v"></i>
+                    <i className="fas fa-ellipsis-v" onClick={toggleDarkMode}></i>
                 </div>
             </div>
             <div className="body">
@@ -56,7 +89,7 @@ function Sidebar(props) {
                         {
                             props.data.contacts.map((contact, index) => (
                                 contact.visible ?
-                                    <li className="user" key={index}>
+                                    <li className={classUser(index)} key={index} onClick={() => changeContact(index)}>
                                         <div className="avatar">
                                             <img src={require('../../images/avatar' + contact.avatar + '.jpg')} alt="Avatar" />
                                         </div>
