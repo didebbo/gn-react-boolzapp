@@ -43,7 +43,7 @@ export default function Main(props) {
         if (showMessageMenu.index === index) showMessageMenu.status = !showMessageMenu.status;
         else showMessageMenu.status = true;
         if (showMessageMenu.status) showMessageMenu.index = index;
-        // props.setData({ ...props.data, showMessageMenu });
+        props.setData({ ...props.data, showMessageMenu });
     }
 
     return (
