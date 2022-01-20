@@ -33,12 +33,17 @@ export default function Main(props) {
         return className;
     }
 
+    const deleteMessage = (index) => {
+        contacts[currentContact].messages.splice(index, 1);
+        props.setData({ ...props.data, contacts });
+    }
+
     const openMenu = (index) => {
         let showMessageMenu = props.data.showMessageMenu;
         if (showMessageMenu.index === index) showMessageMenu.status = !showMessageMenu.status;
         else showMessageMenu.status = true;
         if (showMessageMenu.status) showMessageMenu.index = index;
-        props.setData({ ...props.data, showMessageMenu });
+        // props.setData({ ...props.data, showMessageMenu });
     }
 
     return (
@@ -79,6 +84,20 @@ export default function Main(props) {
                                 (message.status === "sent") && (
                                     <div className={seenAt(message)}>
                                         <i className="fas fa-check-double"></i>
+                                    </div>
+                                )
+                            }
+                            {
+                                (props.data.showMessageMenu.status && props.data.showMessageMenu.index === index) && (
+                                    <div className="messageMenu">
+                                        <ul>
+                                            <li>
+                                                Info Messaggio
+                                            </li>
+                                            <li onClick={() => deleteMessage(index)}>
+                                                Elimina Messaggio
+                                            </li>
+                                        </ul>
                                     </div>
                                 )
                             }

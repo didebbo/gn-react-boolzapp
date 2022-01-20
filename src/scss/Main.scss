@@ -101,6 +101,28 @@
                     opacity: 1;
                 }
             }
+            .messageMenu {
+                position: absolute;
+                background-color: #fff;
+                top: 1em;
+                right: -1em;
+                z-index: 2;
+                white-space: nowrap;
+                > ul {
+                    list-style: none;
+                    font-size: 0.8em;
+                    border: 0.1em solid #e9ebeb;
+                    li {
+                        display: flex;
+                        justify-content: center;
+                        padding: 0.5em 1em;
+                        cursor: pointer;
+                        &:not(:last-child) {
+                            border-bottom: 0.1em solid #e9ebeb;
+                        }
+                    }
+                }
+            }
         }
     }
 }
