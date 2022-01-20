@@ -91,6 +91,16 @@
             audio {
                 border-radius: 2em;
             }
+            .at {
+                align-self: flex-end;
+                font-size: 0.6em;
+                opacity: 0.4;
+                margin-left: 10em;
+                &.seen {
+                    color: #328de7;
+                    opacity: 1;
+                }
+            }
         }
     }
 }

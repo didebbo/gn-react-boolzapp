@@ -27,9 +27,15 @@ export default function Main(props) {
         return className;
     }
 
+    const seenAt = (message) => {
+        let className = "at";
+        if (message.seen) className += " seen";
+        return className;
+    }
+
     const openMenu = (index) => {
         let showMessageMenu = props.data.showMessageMenu;
-        if (showMessageMenu.index == index) showMessageMenu.status = !showMessageMenu.status;
+        if (showMessageMenu.index === index) showMessageMenu.status = !showMessageMenu.status;
         else showMessageMenu.status = true;
         if (showMessageMenu.status) showMessageMenu.index = index;
         props.setData({ ...props.data, showMessageMenu });
@@ -69,10 +75,17 @@ export default function Main(props) {
                                     :
                                     <audio src={message.message} controls></audio>
                             }
+                            {
+                                (message.status === "sent") && (
+                                    <div className={seenAt(message)}>
+                                        <i className="fas fa-check-double"></i>
+                                    </div>
+                                )
+                            }
                         </div>
                     ))
                 }
             </div>
-        </div>
+        </div >
     );
 }
