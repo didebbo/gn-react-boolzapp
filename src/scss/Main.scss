@@ -125,4 +125,29 @@
             }
         }
     }
+    .bottom-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em;
+        background-color: #f3eeea;
+        display: flex;
+        > * {
+            margin: 0 0.5em;
+            cursor: pointer;
+        }
+        i {
+            color: #595f62;
+            font-size: 1.2em;
+        }
+        input {
+            flex-grow: 1;
+            padding: 0.4em;
+            border: none;
+            cursor: auto;
+        }
+        .fa-microphone:active {
+            color: greenyellow;
+        }
+    }
 }

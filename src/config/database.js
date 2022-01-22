@@ -4,7 +4,7 @@ const database = {
     audioUrl: null,
     audio: null,
     currentContact: 0,
-    currentMessage: "",
+    currentInput: "",
     searchInput: "",
     showMenu: false,
     showMessageMenu: {
@@ -202,7 +202,13 @@ const database = {
             }
             ],
         },
-    ]
+    ],
+    scrollChat: function () {
+        setTimeout(() => {
+            const chat = document.getElementById("chat");
+            chat.scrollTop = chat.scrollHeight;
+        }, 0);
+    }
 };
 
 export default database;

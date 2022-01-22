@@ -2,10 +2,11 @@ import '../../scss/Main.scss';
 
 export default function Main(props) {
     let currentContact = props.data.currentContact;
-    let contacts = props.data.contacts;
-    let messages = contacts[currentContact].messages;
-    let name = props.data.contacts[currentContact].name;
-    let lastSee = props.data.contacts[currentContact].lastSee;
+    let contacts = [...props.data.contacts];
+    let messages = [...contacts[currentContact].messages];
+    let name = contacts[currentContact].name;
+    let lastSee = contacts[currentContact].lastSee;
+    let currentInput = props.data.currentInput;
 
     const getAvatarImage = () => {
         return require('../../images/avatar_' + (currentContact + 1) + ".jpg");
@@ -44,6 +45,26 @@ export default function Main(props) {
         else showMessageMenu.status = true;
         if (showMessageMenu.status) showMessageMenu.index = index;
         props.setData({ ...props.data, showMessageMenu });
+    }
+
+    const onChangeCurrentInput = (e) => {
+        currentInput = e.target.value;
+        props.setData({ ...props.data, currentInput });
+    }
+
+    const sendMessage = (e) => {
+        if (e.key === "Enter") {
+            if (currentInput === "") return;
+            contacts[currentContact].messages.push({
+                seen: false,
+                message: currentInput,
+                status: 'sent'
+            });
+            currentInput = "";
+            props.setData({ ...props.data, contacts });
+            props.data.scrollChat();
+            // this.replayMessage(contact);
+        }
     }
 
     return (
@@ -104,6 +125,11 @@ export default function Main(props) {
                         </div>
                     ))
                 }
+            </div>
+            <div className="bottom-bar">
+                <i className="far fa-smile"></i>
+                <input type="text" value={currentInput} onChange={(e) => onChangeCurrentInput(e)} onKeyPress={(e) => sendMessage(e)} placeholder="Scrivi un messaggio..." />
+                <i className="fas fa-microphone"></i>
             </div>
         </div >
     );

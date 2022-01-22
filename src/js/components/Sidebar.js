@@ -4,7 +4,7 @@ export default function Sidebar(props) {
 
     let avatar = require('../../images/avatar_io.jpg');
     let searchInput = props.data.searchInput;
-    let contacts = props.data.contacts;
+    let contacts = [...props.data.contacts];
 
     const setSearchInput = (e) => {
         searchInput = e.target.value;
@@ -38,15 +38,8 @@ export default function Sidebar(props) {
         let showMessageMenu = props.data.showMessageMenu;
         showMessageMenu.status = false;
         props.setData({ ...props.data, currentContact, showMenu, showMessageMenu });
-        // autoScrollMessage(); 
+        props.data.scrollChat();
     }
-
-    // const autoScrollMessage = () => {
-    //     setTimeout(() => {
-    //         const chat = document.getElementById("chat");
-    //         chat.scrollTop = chat.scrollHeight;
-    //     }, 0);
-    // }
 
     return (
         <div className={showSidebar()}>
