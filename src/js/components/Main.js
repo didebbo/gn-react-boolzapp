@@ -1,12 +1,17 @@
+import { useState, useEffect } from 'react';
 import '../../scss/Main.scss';
 
 export default function Main(props) {
+
+    // const [data, setData] = useState(props.data);
     let currentContact = props.data.currentContact;
     let contacts = [...props.data.contacts];
     let messages = [...contacts[currentContact].messages];
     let name = contacts[currentContact].name;
     let lastSee = contacts[currentContact].lastSee;
     let currentInput = props.data.currentInput;
+    let eventKey = props.data.eventKey;
+
 
     const getAvatarImage = () => {
         return require('../../images/avatar_' + (currentContact + 1) + ".jpg");
@@ -53,7 +58,9 @@ export default function Main(props) {
     }
 
     const sendMessage = (e) => {
-        if (e.key === "Enter") {
+        let eventKey = e.key;
+        props.setData({ ...props.data, eventKey });
+        if (eventKey === "Enter") {
             if (currentInput === "") return;
             contacts[currentContact].messages.push({
                 seen: false,
@@ -61,11 +68,56 @@ export default function Main(props) {
                 status: 'sent'
             });
             currentInput = "";
-            props.setData({ ...props.data, contacts });
+            props.setData({ ...props.data, contacts, currentInput });
             props.data.scrollChat();
-            // this.replayMessage(contact);
         }
     }
+
+    // WORK IN PROGRESS
+    const replayMessage = () => {
+        setTimeout(() => {
+            contacts[currentContact].lastSee = "Online";
+            props.setData({ ...props.data, contacts });
+            setTimeout(() => {
+                seeMessageLoop();
+                setTimeout(() => {
+                    if (contacts[currentContact].lastSee !== "Online") return;
+                    contacts[currentContact].messages.push(
+                        {
+                            seen: true,
+                            message: messages[Math.floor(Math.random() * messages.length)],
+                            status: 'received'
+                        }
+                    );
+                    props.setData({ ...props.data, contacts });
+                    props.data.scrollChat();
+                    setTimeout(() => {
+                        contacts[currentContact].lastSee = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('us-US', { hour12: false });
+                        props.setData({ ...props.data, contacts });
+                    }, 1000 * Math.floor(Math.random() * 10 + 1));
+                }, 1000 * Math.floor(Math.random() * 10 + 1));
+            }, 1000 * Math.floor(Math.random() * 5 + 1));
+        }, 1000 * Math.floor(Math.random() * 10 + 1));
+    }
+
+    // WORK IN PROGRESS
+    const seeMessageLoop = () => {
+        const loop = setInterval(() => {
+            if (contacts[currentContact].lastSee !== "Online") clearInterval(loop);
+            contacts[currentContact].messages.forEach((message) => {
+                message.seen = true;
+            });
+        }, 0);
+        props.setData({ ...props.data, contacts });
+    }
+
+    // useEffect(() => {
+    //     let eventKey = props.data.eventKey;
+    //     if (eventKey !== "Enter") return;
+    //     eventKey = null;
+    //     props.setData({ ...props.data, eventKey });
+    //     alert("Enter");
+    // }, [eventKey]);
 
     return (
         <div className="Main">
