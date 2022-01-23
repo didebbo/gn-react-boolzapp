@@ -5,6 +5,7 @@ const database = {
     audio: null,
     currentContact: 0,
     currentInput: "",
+    eventKey: null,
     searchInput: "",
     showMenu: false,
     showMessageMenu: {
